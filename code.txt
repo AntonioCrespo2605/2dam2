@@ -1,0 +1,38 @@
+import android.view.View;
+import android.widget.ImageView;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity2 extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        //Imagen se muestre unos segundos y pase a otra pantalla
+        super.onStart();
+        Timer t=new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        }, 2000);
+
+        ImageView iv=(ImageView)findViewById(R.id.portada);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                t.cancel();
+                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+}
